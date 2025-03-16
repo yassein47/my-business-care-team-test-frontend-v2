@@ -1,38 +1,337 @@
-.App {
+.basecontainer {
+  display: flex;
+  min-height: 100vh; 
+  animation: fadeIn 1s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.left-section {
+  flex: 2; 
+  width: 30%;
+  background-color: #f4f4f4;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  position: fixed; 
+  height: 100vh;
+  animation: slideInLeft 1s ease-in-out forwards 0.3s;
+}
+
+.logo {
+  width: 60%; 
+  margin-right: 20%;
+  margin-left:  20%;
+  margin-top: 30%;
+  margin-bottom: 5%;
+}
+.logo-min{
+  display: none;
+}
+
+.description {
+  width: 80%;
+  margin-right: 10%;
+  margin-left:  10%;
+  align-items: center;
+  color: #777;
+  font-size: 16px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+
+.right-section {
+  flex: 3; 
+  width: 70%;
+  margin-left: 30%;
+  background-color: #3b82f6;
+  background-image: url('assets/backgroand.jpg'); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  overflow-y: auto;
+  animation: slideInRight 1s ease-in-out forwards 0.5s;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+
+
+@media (max-width: 768px) {
+  .container {
+      flex-direction: column;
+  }
+
+  .left-section {
+    display: none;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    height: 100px;
+  }
+
+  .logo {
+    width: 60px; 
+    margin-bottom: 0;
+    margin-right: 10px;
+  }
+  .logo-min{
+    display: block;
+    width: 20%; 
+    margin-right: 5%;
+    margin-left:  5%;
+    height: auto;
+  }
+
+  .title{
+    display:none;
+  }
+
+  .description {
+    font-size: 14px;
+    max-width: none;
+    display: none;
+  }
+
+  .right-section {
+    width: 100%;
+    margin-left: 0%;
+    flex: 1;
+    font-size: 14px;
+  }
+}
+
+.header{
+  display: flex;
+}
+
+.container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  max-width: 80%;
+  min-width: 80%;
+  min-height: 90vh;
+  margin: auto;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #3b82f6;
+  margin-bottom: 20px;
+}
+
+.record-button {
+  background-color: #3b82f6;
   color: white;
+  border-color: #3b82f6;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
-.App-link {
-  color: #61dafb;
+.record-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  background-color: #ebeff8;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+.audio-container {
+  margin-top: 20px;
+}
+
+.audio-player {
+  
+  
+  height: 50px;  
+  border-radius: 10px;
+  background: #cbdaff;     
+  color: rgb(97, 171, 240);        
+  padding: 5px;         
+  outline: none;       
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+.audio-player::-webkit-media-controls-panel {
+  background-color: #cbdaff;  
+  border-radius: 10px;    
+}
+
+.audio-player::-webkit-media-controls-play-button,
+.audio-player::-webkit-media-controls-pause-button {
+  background-color: rgb(255, 255, 255);
+  border-radius: 50%;
+}
+
+.audio-player::-webkit-media-controls-timeline {
+  border-radius: 5px;
+}
+
+.transcription-container {
+  position: relative;
+  width: 90%;
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #e0f7fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sub-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #0277bd;
+}
+
+.transcription-text {
+  color: #555;
+  margin-top: 10px;
+}
+
+.analyse-button {
+  float: right; 
+  margin-left: 10px;
+  background-color: #3b82f6;
+  border-color: #3b82f6;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s;
+  transition: all 0.3s ease-in-out;
+}
+
+.analyse-button:hover {
+  animation: pulse 2s infinite;
+  background-color: #346fee;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+
+.error-message {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #fce4ec;
+  color: #d32f2f;
+  border: 1px solid #d32f2f;
+  border-radius: 8px;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 10px;
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+
+
+
+.analysis-container {
+  width: 90%;
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #fff9c4;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.analysis-container p {
+  color: #555;
+}
+
+.analysis-line {
+  color: #555;
+  margin-top: 10px;
+}
+
+
+.close-icon::before {
+  content: "\2717";
+  position: absolute;
+  top: 10%;  
+  right: 5%;
+  font-size: 20px;
+  cursor: pointer;
+  color: #3b82f6;
+}
+.close-icon:hover::before {
+  content: "\2718"; 
+}
+
+
+.close-icon2::before {
+  content: "\2717";
+  position: absolute;
+  top: 10%;  
+  right: 5%;
+  font-size: 20px;
+  cursor: pointer;
+  color: #a58a02;
+}
+.close-icon2:hover::before {
+  content: "\2718"; 
 }

@@ -19,6 +19,9 @@ export default function AudioRecorder() {
   const http = new HTTP;
   const YasseinMessege = "I am working on this project as part of the hiring test.Hoping it meets the required standards.";
   const startRecording = async () => {
+    setAnalysis(null);
+    setTranscription(null); 
+    sethaveRecording(false);
     try {
       sethaveRecording(false);
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -66,6 +69,7 @@ export default function AudioRecorder() {
       }
       else{
         const data = await response.json();
+        setTranscription(null);
         setTranscription(data);
         setconverOK(true);
       }
@@ -77,7 +81,7 @@ export default function AudioRecorder() {
   };
 
   const analysText = async() => {
-
+    setAnalysis(null);
     try {
 
       const response = await http.analyzeFunction(transcription);
@@ -88,6 +92,9 @@ export default function AudioRecorder() {
       }
 
       const data = await response.json();
+      setanalysisOK(false);
+      setanalysisOK(true);
+      setAnalysis("");
       setAnalysis(data.analysis);
     } catch (error) {
       setanalysisOK(false);
@@ -103,7 +110,6 @@ export default function AudioRecorder() {
   
   useEffect(() => {
     if (transcription) {
-      console.log("Transcription updated:", transcription);
       setanalysisOK2(true);
     }
   }, [transcription]);
@@ -113,10 +119,12 @@ export default function AudioRecorder() {
 
     <div class="basecontainer">
       <div class="left-section">
-        <img src="assets/main-logo.png" alt="My Business Care Team  Logo" class="logo"/>
-          <p class="description">
-            <TypingEffect text={YasseinMessege}/>
-          </p>
+        <a href="https://mybcat.com/" target="_blank">
+          <img src="assets/main-logo.png" alt="My Business Care Team  Logo" class="logo"/>
+        </a>
+        <p class="description">
+          <TypingEffect text={YasseinMessege}/>
+        </p>
       </div>
       <div class="right-section">
         <div class="container">

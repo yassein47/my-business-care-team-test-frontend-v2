@@ -7,9 +7,13 @@ const TypingEffect = ({ text, speed = 50 }) => {
   useEffect(() => {
     let index = 0;
     const intervalId = setInterval(() => {
+      console.log(index, text[index]);
+      if(index === 1){
+        setDisplayedText(prevText => prevText + text[1]);
+      }
       setDisplayedText(prevText => prevText + text[index]);
       index += 1;
-      if (index === text.length-1) {
+      if (index === text.length - 1) {
         clearInterval(intervalId);
       }
     }, speed);

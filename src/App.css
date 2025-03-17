@@ -297,10 +297,12 @@
   background-color: #fff9c4;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  white-space: pre-wrap;
 }
 
 .analysis-container p {
   color: #555;
+  white-space: pre-wrap;
 }
 
 .analysis-line {

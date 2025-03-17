@@ -1,70 +1,109 @@
-# Getting Started with Create React App
+# Frontend - Audio Recorder and Analysis (My Business Care Team Test)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
+This project is a frontend application built with React that allows users to record audio, transcribe it, and analyze the transcription. It interacts with a backend service for audio-to-text conversion and text analysis.
 
-## Available Scripts
+## Features
+- Record audio using the browser's microphone.
+- Upload recorded audio for transcription.
+- Display transcribed text dynamically.
+- Perform text analysis on the transcription.
+- Interactive UI with smooth user experience.
 
-In the project directory, you can run:
+## Technologies Used
+- **React** - For building the frontend UI.
+- **JavaScript (ES6)** - For logic implementation.
+- **CSS** - For styling the application.
+- **Fetch API** - For sending HTTP requests to the backend.
 
-### `npm start`
+## Installation and Setup
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Prerequisites
+Ensure you have the following installed:
+- [Node.js](https://nodejs.org/) (Recommended version: LTS)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Steps to Run the Application
+1. **Clone the Repository:**
+   ```sh
+   git clone https://github.com/yassein47/my-business-care-team-frontend.git
+   cd my-business-care-team-frontend
+   ```
+2. **Install Dependencies:**
+   ```sh
+   npm install
+   ```
+   or using yarn:
+   ```sh
+   yarn install
+   ```
+3. **Start the Development Server:**
+   ```sh
+   npm start
+   ```
+   or using yarn:
+   ```sh
+   yarn start
+   ```
+4. Open `http://localhost:3000` in your browser.
 
-### `npm test`
+## Project Structure
+```
+├── src
+│   ├── components
+│   │   ├── TypingEffect.js  # Component for animated text display
+│   ├── Services
+│   │   ├── httpService.js  # Service for making API requests
+│   ├── App.js  # Main React Component
+│   ├── App.css  # Stylesheet for the app
+│   ├── index.js  # Entry point
+│
+├── public
+│   ├── assets
+│   │   ├── main-logo.png  # Project logo
+│   │   ├── record.png  # Icon for recording button
+│   │   ├── send.png  # Icon for sending recorded audio
+│
+├── package.json  # Project dependencies
+└── README.md  # Project documentation
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## API Endpoints Used
+- **Transcription API:**
+  - Endpoint: `/transcribe`
+  - Method: `POST`
+  - Body: Audio file (wav format)
+  - Response: JSON containing transcribed text
 
-### `npm run build`
+- **Analysis API:**
+  - Endpoint: `/analyze`
+  - Method: `POST`
+  - Body: JSON `{ "text": "transcribed text" }`
+  - Response: JSON containing analysis results
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Usage
+- Click the **record** button to start recording audio.
+- Click **stop** to finish recording.
+- The audio is uploaded automatically for transcription.
+- Once transcribed, the text is displayed.
+- Click **Analyze** to get insights from the transcription.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Troubleshooting
+- Ensure your microphone permissions are enabled in the browser.
+- If transcription fails, check backend service availability.
+- Restart the development server if changes are not reflected.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## License
+This project is licensed under the MIT License.
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+For any issues, feel free to contact the project maintainers.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Writer
+React.js with Love..
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+# Yassein
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

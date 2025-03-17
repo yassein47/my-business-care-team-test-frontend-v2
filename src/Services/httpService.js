@@ -1,7 +1,7 @@
 
 import axios from "axios";
 
-const BaseURL = 'http://localhost:5000/';
+const BaseURL = 'https://my-business-care-team-backend-production-0224.up.railway.app/';
 
 const transcribe = 'transcribe';
 const analyze = 'analyze';

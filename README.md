@@ -3,6 +3,9 @@
 ## Overview
 This project is a frontend application built with React that allows users to record audio, transcribe it, and analyze the transcription. It interacts with a backend service for audio-to-text conversion and text analysis.
 
+---
+
+
 ## Features
 - Record audio using the browser's microphone.
 - Upload recorded audio for transcription.
@@ -10,11 +13,24 @@ This project is a frontend application built with React that allows users to rec
 - Perform text analysis on the transcription.
 - Interactive UI with smooth user experience.
 
+---
+
+
 ## Technologies Used
 - **React** - For building the frontend UI.
 - **JavaScript (ES6)** - For logic implementation.
 - **CSS** - For styling the application.
 - **Fetch API** - For sending HTTP requests to the backend.
+
+---
+
+
+## Demo
+`https://distinctive-faunie-my-bisuness-care-team-frontend-274b3477.koyeb.app/`
+
+
+---
+
 
 ## Installation and Setup
 
@@ -47,6 +63,9 @@ Ensure you have the following installed:
    ```
 4. Open `http://localhost:3000` in your browser.
 
+---
+
+
 ## Project Structure
 ```
 ├── src
@@ -68,6 +87,9 @@ Ensure you have the following installed:
 └── README.md  # Project documentation
 ```
 
+---
+
+
 ## API Endpoints Used
 - **Transcription API:**
   - Endpoint: `/transcribe`
@@ -81,6 +103,9 @@ Ensure you have the following installed:
   - Body: JSON `{ "text": "transcribed text" }`
   - Response: JSON containing analysis results
 
+---
+
+
 ## Usage
 - Click the **record** button to start recording audio.
 - Click **stop** to finish recording.
@@ -88,10 +113,16 @@ Ensure you have the following installed:
 - Once transcribed, the text is displayed.
 - Click **Analyze** to get insights from the transcription.
 
+---
+
+
 ## Troubleshooting
 - Ensure your microphone permissions are enabled in the browser.
 - If transcription fails, check backend service availability.
 - Restart the development server if changes are not reflected.
+
+---
+
 
 ## License
 This project is licensed under the MIT License.
@@ -100,9 +131,13 @@ This project is licensed under the MIT License.
 
 For any issues, feel free to contact the project maintainers.
 
+---
+
+
 ## Writer
 React.js with Love..
 
+---
 
 # Yassein
 

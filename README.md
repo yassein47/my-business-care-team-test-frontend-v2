@@ -1,18 +1,20 @@
 # Frontend - Audio Recorder and Analysis (My Business Care Team Test)
 
 ## Overview
-This project is a frontend application built with React that allows users to record audio, transcribe it, and analyze the transcription. It interacts with a backend service for audio-to-text conversion and text analysis.
-
+This project is a frontend application built with React that allows users to record audio, transcribe it, and analyze the transcription. It interacts with a backend service for audio-to-text conversion and text analysis. The updated version includes improvements in the UI and additional features such as history tracking and more user-friendly interactions.
 ---
 
 
 ## Features
-- Record audio using the browser's microphone.
-- Upload recorded audio for transcription.
-- Display transcribed text dynamically.
-- Perform text analysis on the transcription.
-- Interactive UI with smooth user experience.
-
+- **Record Audio**: Record audio using the browser's microphone.
+- **Upload Audio for Transcription**: Upload recorded audio for transcription.
+- **Dynamic Display of Transcription**: Display transcribed text dynamically as it’s received from the backend.
+- **Text Analysis**: Perform text analysis on the transcription.
+- **Interactive UI**: A smooth user experience with updated UI elements.
+- **Loading Indicator**: A loading spinner appears when waiting for API responses.
+- **History Feature**: A new button in the top-right corner to open a history interface displaying previously transcribed and analyzed text.
+- **Flexible History Items**: History items display with a responsive layout, showing the transcription text, analysis, and the date of each record.
+- **Delete and Re-analyze**: Ability to delete or re-analyze previous transcriptions directly from the history interface.
 ---
 
 
@@ -21,7 +23,7 @@ This project is a frontend application built with React that allows users to rec
 - **JavaScript (ES6)** - For logic implementation.
 - **CSS** - For styling the application.
 - **Fetch API** - For sending HTTP requests to the backend.
-
+- **React Hooks (useState, useEffect)** - For managing state and side effects in the UI.
 ---
 
 
@@ -42,7 +44,7 @@ Ensure you have the following installed:
 ### Steps to Run the Application
 1. **Clone the Repository:**
    ```sh
-   git clone https://github.com/yassein47/my-business-care-team-frontend.git
+   git clone https://github.com/yassein47/my-business-care-team-test-frontend-v2.git
    cd my-business-care-team-frontend
    ```
 2. **Install Dependencies:**
@@ -102,6 +104,18 @@ Ensure you have the following installed:
   - Method: `POST`
   - Body: JSON `{ "text": "transcribed text" }`
   - Response: JSON containing analysis results
+ 
+- **Delete API:**
+  - Endpoint: `/delete:id`
+  - Method: `delete`
+  - Body: JSON `{ "id": 1 }`
+  - Response: JSON containing { massege: "ok" }
+
+- **Get API:**
+  - Endpoint: `/transcripts`
+  - Method: `get`
+  - Body: ``
+  - Response: JSON containing all records
 
 ---
 

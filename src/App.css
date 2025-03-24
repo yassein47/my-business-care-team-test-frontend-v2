@@ -143,6 +143,7 @@
 
 .header{
   display: flex;
+  width: 100%;
 }
 
 .container {
@@ -158,6 +159,17 @@
   min-height: 90vh;
   margin: auto;
 }
+
+
+.container-in {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+  min-width: 100%;
+  margin: auto;
+}
+
 
 .title {
   font-size: 2rem;
@@ -239,24 +251,30 @@
 }
 
 .analyse-button {
-  float: right; 
+  float: right;
   margin-left: 10px;
   background-color: #3b82f6;
   border-color: #3b82f6;
   color: white;
   padding: 10px 20px;
   border-radius: 30px;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
   margin-top: 20px;
-  transition: background-color 0.3s;
+  line-height: 1.5;
+  letter-spacing: 0.5px;
   transition: all 0.3s ease-in-out;
 }
 
+.analyse-button i {
+  font-size: 1.5rem; 
+  margin-right: 8px;
+}
+
 .analyse-button:hover {
-  animation: pulse 2s infinite;
-  background-color: #346fee;
+  background-color: #2563eb;
+  border-color: #2563eb;
 }
 
 @keyframes pulse {
@@ -336,4 +354,115 @@
 }
 .close-icon2:hover::before {
   content: "\2718"; 
+}
+
+
+.list-history{
+  width: 100%;
+}
+
+
+.date-item{
+  font-size: 1.1rem;
+  font-weight: 200;
+  color: #8a8a8a;
+}
+
+.item-list-transcription-container {
+  position: relative;
+  width: 100%;
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #e0f7fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.item-list-transcription-container-no-analyze {
+  position: relative;
+  width: 100%;
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #faf9e0;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.transcription-text-item {
+  color: #3b82f6;
+  font-size: 1.5rem;
+  margin-top: 10px;
+}
+
+.analyze-text-item {
+  color: #57597f;
+  font-size: 1.4rem;
+  margin-top: 10px;
+}
+
+.container-list-heades {
+  display: flex;
+  justify-content: space-between; 
+}
+
+.container-list-heades2 {
+  display: flex;
+}
+
+.item-container-list-heades {
+  margin: 10px;
+}
+
+.history-button{
+  color: #3b82f6;
+  background-color: rgba(red, green, blue,1);
+  border-color: #3b82f6;
+  border-radius: 30px;
+  font-size: 1.5rem;
+  font-weight: 100;
+  cursor: pointer;
+  line-height: 1.5;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease-in-out;
+}
+
+.scrollable-element {
+  height: 80vh; 
+  overflow-y: auto; 
+  padding: 10px; 
+  scrollbar-width: thin;
+  scrollbar-color: #3b82f6 #f1f1f1;
+}
+.scrollable-element::-webkit-scrollbar {
+  width: 4px; 
+}
+
+.scrollable-element::-webkit-scrollbar-thumb {
+  background-color: #3b82f6; 
+  border-radius: 10px; 
+}
+
+.scrollable-element::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+}
+
+.loading-container2{
+  margin-top: 15%;
+}
+
+.loading-container img {
+  width: 50px; 
+  height: auto;
 }

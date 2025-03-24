@@ -14,10 +14,25 @@ export default function AudioRecorder() {
   const [analysis, setAnalysis] = useState(null);
   const [analysisOK, setanalysisOK] = useState(true);
   const [analysisOK2, setanalysisOK2] = useState(false);
+
+ 
+
   const mediaRecorderRef = useRef(null);
   const audioChunks = useRef([]);
-  const http = new HTTP;
+  const http = new HTTP();
   const YasseinMessege = "I am working on this project as part of the hiring test.Hoping it meets the required standards.";
+
+
+
+  const [transcriptionList, settranscriptionList] = useState([]);
+  const [transcriptionListLoading, settranscriptionListLoading] = useState(true);
+  const [idToAnalyze, setidToAnalyze] = useState(null);
+  const [inHistory, setinHistory] = useState(false);
+  const [refreash, setrefreash] = useState(false);
+  const [analyzeLoading, setanalyzeLoading] = useState(false);
+  const [deepgramLoading, setdeepgramLoading] = useState(false);
+  const [deleteBool, setdeleteBool] = useState(false);
+
   const startRecording = async () => {
     setAnalysis(null);
     setTranscription(null); 
@@ -55,6 +70,7 @@ export default function AudioRecorder() {
   };
 
   const uploadAudio = async (audioBlob) => {
+    setdeepgramLoading(true);
     const formData = new FormData();
     formData.append("audio", audioBlob);
   
@@ -71,6 +87,7 @@ export default function AudioRecorder() {
         const data = await response.json();
         setTranscription(null);
         setTranscription(data);
+        setidToAnalyze(data.id)
         setconverOK(true);
       }
     } catch (error) {
@@ -82,9 +99,11 @@ export default function AudioRecorder() {
 
   const analysText = async() => {
     setAnalysis(null);
+    setanalyzeLoading(true);
+    settranscriptionListLoading(true);
     try {
 
-      const response = await http.analyzeFunction(transcription);
+      const response = await http.analyzeFunction(transcription, idToAnalyze);
 
       if (response.status === 500) {
         setanalysisOK(false);
@@ -95,44 +114,201 @@ export default function AudioRecorder() {
       setanalysisOK(false);
       setanalysisOK(true);
       setAnalysis("");
-      setAnalysis(data.analysis);
+      if (transcriptionList && inHistory) {
+        console.log("in History")
+        /*settranscriptionList([]);
+        const res = await http.getTranscripts()
+        settranscriptionList(res) ;*/
+      }
+      else{
+        console.log("setAnalysis(data.analysis)");
+        setAnalysis(data.analysis);
+      }
+      
+      settranscriptionListLoading(false);
     } catch (error) {
       setanalysisOK(false);
       seterrmsga('Error analyzing text: Analysis failed. Please try again.');
     }
   }
 
-  const closeFunction= () =>{
+
+  
+  const closeFunction = () =>{
     setAnalysis(null);
     setTranscription(null); 
     sethaveRecording(false);
   }
+
+  const showList = async () => {
+    settranscriptionListLoading(true);
+    setinHistory(true);
+    console.log("in show");
+    const res = await http.getTranscripts();
+    console.log("Response from getTranscripts:", res);
+    settranscriptionList(Array.isArray(res) ? res : []);
+    setrefreash(false);
+  }
   
+  const hideList = async () => {
+    setinHistory(false);
+    console.log("in hide");
+    settranscriptionList([]);
+  }
+
+
+  const deleteRecord = (id) => {
+    const del = async () =>{
+      const del = await http.deleteRecord(id);
+      setdeleteBool(false);
+      settranscriptionListLoading(true);   
+      const res = await http.getTranscripts();
+      settranscriptionList(res);
+      settranscriptionListLoading(false); 
+      setrefreash(false); 
+      setinHistory(true);
+    }
+    del()
+  }
+  
+  useEffect(() => {
+    const re = async () => {
+      if (idToAnalyze !== null) {
+        if (refreash && inHistory) {
+          settranscriptionListLoading(true); 
+  
+          await analysText();
+          const res = await http.getTranscripts();
+
+          settranscriptionList(res);
+          settranscriptionListLoading(false); 
+          setrefreash(false); 
+          setinHistory(true);
+        }
+      }
+    };
+  
+    re(); 
+  
+  }, [refreash]);
+
+
+  useEffect(() => {
+    settranscriptionListLoading(false);
+  }, [transcriptionList]); 
+
+
+
+  useEffect(() => {
+    if(analysis){
+      setanalyzeLoading(false);
+    }
+  }, [analysis]); 
+
   useEffect(() => {
     if (transcription) {
       setanalysisOK2(true);
+      setdeepgramLoading(false);
     }
   }, [transcription]);
 
   return (
   
 
-    <div class="basecontainer">
-      <div class="left-section">
+    <div className="basecontainer">
+      <div className="left-section">
         <a href="https://mybcat.com/" target="_blank">
-          <img src="assets/main-logo.png" alt="My Business Care Team  Logo" class="logo"/>
+          <img src="assets/main-logo.png" alt="My Business Care Team  Logo" className="logo"/>
         </a>
-        <p class="description">
+        <div className="description">
           <TypingEffect text={YasseinMessege}/>
-        </p>
+        </div>
       </div>
-      <div class="right-section">
-        <div class="container">
-          <div className="header">
-            <img src="assets/main-logo.png" alt="My Business Care Team  Logo" class="logo-min"/>
-            <h1 class="title">Project Test</h1>
+      <div className="right-section">
+        <div className="container">
+          <div className="header container-list-heades">
+            <img src="assets/main-logo.png" alt="My Business Care Team  Logo" className="logo-min item-container-list-heades"/>
+            <h1 className="title item-container-list-heades">Project Test v 2.0</h1>
+
+            {(!inHistory) && (
+              <div
+              onClick={showList}
+              className="history-button item-container-list-heades"
+            >
+              <i className='fas fa-clipboard-list'></i>
+              History 
           </div>
-         
+            )}
+
+            {(inHistory) && (
+              <div
+                onClick={hideList}
+                className="history-button item-container-list-heades"
+              >
+                back 
+                <i className='far fa-arrow-alt-circle-right'></i>
+            </div>
+            )}
+            
+          </div>
+          {(inHistory) &&(
+            <div className="container-in">
+            {(!transcriptionListLoading) && (
+                <div className="list-history scrollable-element">
+                  {Array.isArray(transcriptionList) && transcriptionList.map((item) => (
+                  <div className={item.analyse ? (
+                    "item-list-transcription-container"
+                  ) : (
+                    "item-list-transcription-container-no-analyze"
+                  )} key={item.id}>
+                    <div className="container-list-heades">
+                      <p className="date-item item-container-list-heades">{new Date(parseFloat(item.timestamp)).toString()}</p>
+                      
+                      <div className="container-list-heades2">
+                        <div 
+                          className="btn btn-info btn-sm item-container-list-heades"
+                          onClick={ ()  => {
+                            setrefreash(true);
+                            setidToAnalyze(item.id);
+                          }}
+                        >
+                          {item.analyse ? (
+                            <span className="glyphicon glyphicon-repeat"></span>
+                          ) : (
+                            <i className="fas fa-puzzle-piece"></i>
+                          )}
+                        </div>
+
+
+                        <div 
+                          className="btn btn-danger btn-xs item-container-list-heades"
+                          onClick={ ()  => {
+                            deleteRecord(item.id);
+                          }}
+                        >
+                          <i class="material-icons">delete_sweep</i>
+                        </div>
+                      </div>
+
+                    </div>
+                    <p className="transcription-text-item">{item.transcript}</p>
+                    <p className="analyze-text-item">{ item.analyse }</p>
+                    
+                  </div>
+                ))}
+                </div>
+              )}
+            {(transcriptionListLoading) && (
+              <div className="loading-container">
+                <img src="assets/load-35.gif" alt="loading" />
+              </div>
+            )}
+
+            </div>
+          )}
+
+           {(!inHistory) && (
+            <div className="container-in scrollable-element">
           <div 
             style={{ width: "30%", maxWidth: "100px", height: "auto" }}  
             onClick={recording ? stopRecording : startRecording} className="">
@@ -141,54 +317,71 @@ export default function AudioRecorder() {
               <img src="assets/record.png" alt="Start Recording" style={{ width: "100%", height: "auto" }}  />
             }
           </div>
-          {haveRecording && (
-            <div class="audio-container">
-              <audio controls src={audioURL} class="audio-player"></audio>
-            </div>
-          )}
+            {haveRecording && (
+              <div className="audio-container">
+                <audio controls src={audioURL} className="audio-player"></audio>
+              </div>
+            )}
 
-          {(transcription && !(transcription?.transcription == "") && !(transcription?.error)) && (
-            <div class="transcription-container">
-              <div class="close-icon" onClick={closeFunction}></div>
-              <h2 class="sub-title">Transcription:</h2>
-              <p class="transcription-text"><TypingEffect text={transcription?.transcription} speed={5} /></p>
-              <button
-                onClick={analysText}
-                class="analyse-button"
-              >
-                Analyse
-              </button>
-            </div>
-          )}
+            {(deepgramLoading) && (
+              <div className="loading-container">
+                <img src="assets/load-35.gif" alt="loading" />
+              </div>
+            )}
 
-          {(transcription?.transcription == "") && (
-            <div className="error-message">
-              <p>No transcription available. Please try again.</p>
-            </div>
-          )}
-          {!converOK && (
-            <div class="error-message">{errmsg}</div>
-          )}
+            {(transcription && !(transcription?.transcription === "") && !(transcription?.error)) && (
+              <div className="transcription-container">
+                <div className="close-icon" onClick={closeFunction}></div>
+                <h2 className="sub-title">Transcription:</h2>
+                <div className="transcription-text"><TypingEffect text={transcription?.transcription} speed={3} /></div>
+                <button
+                  onClick={analysText}
+                  className="analyse-button"
+                >
+                  <i className='fas fa-puzzle-piece'></i>
+                  Analyse
+                </button>
+              </div>
+            )}
 
-        {(transcription?.error) && (
-            <div className="error-message">
-              <p>{transcription?.error}</p>
-            </div>
-          )}
+            {(transcription?.transcription === "") && (
+              <div className="error-message">
+                <p>No transcription available. Please try again.</p>
+              </div>
+            )}
+            {!converOK && (
+              <div className="error-message">{errmsg}</div>
+            )}
+
+            {(transcription?.error) && (
+                <div className="error-message">
+                  <p>{transcription?.error}</p>
+                </div>
+              )}
 
 
-          {analysis && (
-            <div class="analysis-container">
-              <h2 class="sub-title">Analysis:</h2>
-              <TypingEffect text={analysis} speed={20} />
-              
-            </div>
-          )}
-        
-          {(!analysisOK && analysisOK2) && (
-            <div class="error-message">{errmsga}</div>
-          )}
+            {analyzeLoading && (
+              <div className="loading-container loading-container2">
+                <img src="assets/load-35.gif" alt="loading" />
+              </div>
+            )}
+
+
+            {analysis && (
+              <div className="analysis-container">
+                <h2 className="sub-title">Analysis:</h2>
+                <TypingEffect text={analysis} speed={10} />
+                
+              </div>
+            )}
+          
+            {(!analysisOK && analysisOK2) && (
+              <div className="error-message">{errmsga}</div>
+            )}
           </div>
+           )} 
+          
+        </div>
       </div>
     </div>
 

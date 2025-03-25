@@ -31,7 +31,6 @@ export default function AudioRecorder() {
   const [refreash, setrefreash] = useState(false);
   const [analyzeLoading, setanalyzeLoading] = useState(false);
   const [deepgramLoading, setdeepgramLoading] = useState(false);
-  const [deleteBool, setdeleteBool] = useState(false);
 
   const startRecording = async () => {
     setAnalysis(null);
@@ -115,13 +114,11 @@ export default function AudioRecorder() {
       setanalysisOK(true);
       setAnalysis("");
       if (transcriptionList && inHistory) {
-        console.log("in History")
         /*settranscriptionList([]);
         const res = await http.getTranscripts()
         settranscriptionList(res) ;*/
       }
       else{
-        console.log("setAnalysis(data.analysis)");
         setAnalysis(data.analysis);
       }
       
@@ -143,16 +140,13 @@ export default function AudioRecorder() {
   const showList = async () => {
     settranscriptionListLoading(true);
     setinHistory(true);
-    console.log("in show");
     const res = await http.getTranscripts();
-    console.log("Response from getTranscripts:", res);
     settranscriptionList(Array.isArray(res) ? res : []);
     setrefreash(false);
   }
   
   const hideList = async () => {
     setinHistory(false);
-    console.log("in hide");
     settranscriptionList([]);
   }
 
@@ -160,7 +154,7 @@ export default function AudioRecorder() {
   const deleteRecord = (id) => {
     const del = async () =>{
       const del = await http.deleteRecord(id);
-      setdeleteBool(false);
+
       settranscriptionListLoading(true);   
       const res = await http.getTranscripts();
       settranscriptionList(res);

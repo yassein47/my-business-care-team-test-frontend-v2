@@ -2,8 +2,8 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-//const BaseURL = 'http://localhost:5000/';
-const BaseURL = "http://165.232.155.153:5003/";
+const BaseURL = 'http://localhost:5000/';
+//const BaseURL = "http://165.232.155.153:5003/";
 //const BaseURL = 'https://my-business-care-team-test-backe-production.up.railway.app/';
 //const BaseURL = 'https://mbcat-t-eh4sae6tg-yasseins-projects-05df8561.vercel.app/';
 const transcribe = 'transcribe';
